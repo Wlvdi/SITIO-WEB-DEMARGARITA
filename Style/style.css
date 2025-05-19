@@ -1,0 +1,45 @@
+body{
+  box-sizing: border-box;
+  background-color: rgb(47, 47, 47);
+  margin: 0;
+  padding: 0;
+}
+
+header{
+  background: #F9E8F6;
+}
+
+.hcontenedor{
+padding: 10px 50px;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+}
+
+.logo{
+width: 10vw;
+max-width: 80px;
+height: auto;
+}
+
+nav{
+margin-left: auto; 
+}
+
+.hcontenedor ul{
+display: flex;
+flex-wrap: wrap;
+gap: 30px;
+}
+
+.hcontenedor li a{
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 3px 10px ;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.hcontenedor li a:hover{
+  background-color: rgb(244, 197, 240);
+  
+}
