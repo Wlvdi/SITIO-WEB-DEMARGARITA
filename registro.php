@@ -34,6 +34,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"])) {
 } else {
     echo "No se recibieron datos válidos.";
 }
-
 $conexion->close();
 ?>
