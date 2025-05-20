@@ -25,3 +25,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+    
+document.getElementById("registroForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch("registro.php", {  // Reemplaza por la ruta correcta
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.text())  // <- esto convierte el body en texto legible
+    .then(data => {
+      alert("Respuesta del servidor: " + data);  // <- ahora verás el error o éxito real
+    })
+    .catch(err => {
+      console.error("Error de conexión:", err);
+      alert("Error de conexión con el servidor.");
+    });
+  });
