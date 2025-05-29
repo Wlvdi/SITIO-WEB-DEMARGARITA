@@ -1,14 +1,19 @@
-body{
+body {
   box-sizing: border-box;
-  background-color: rgb(47, 47, 47);
-  margin: 0;
+  background: rgb(201, 8, 8);
+  margin: 100px;
   padding: 0;
+  font-family: 'Nunito', sans-serif;
 }
 
 
 /* HEADER */
 header{
 background: #F9E8F6;
+position: sticky;
+top: 0;
+z-index: 1000;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .hcontenedor{
@@ -31,13 +36,14 @@ margin-left: auto;
 
 .hcontenedor ul{
 display: flex;
-min-width: 20px;
 flex-wrap: wrap;
-gap: 30px;
+min-width: 20px;
+gap: 15px;
+
 }
 
-
 .hcontenedor li a{
+font-family: 'Nunito', sans-serif;
 color: #000000;
 text-decoration: none;
 font-size: 20px;
@@ -47,8 +53,100 @@ transition: background-color 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .hcontenedor li a:hover{
-background-color: rgb(244, 197, 240);
 }
+
+/* Carrusel */
+
+.Carrusel .carousel-item img{
+  width: 100%;
+  height: 91vh;
+  object-fit: fill;
+}
+
+/* Productos */
+
+.Productos{
+background-color: #F9E8F6;
+position: relative;
+}
+
+
+.Productos h1{ 
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0;
+  text-align: center;
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+.Cartas_productos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 35px;
+}
+
+.BotonVerMasProducto {
+  position:relative;
+  background: #E4A4C9;
+  padding: 5px 50px 5px 50px;
+  color: white;
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 20px auto;
+  font-size: 1.3rem;
+}
+
+.Carta_producto{
+  background-color: #ffff;
+  padding: 16px;
+  border-radius: 8px;
+  display: none; /* Ocultas inicialmente */
+}
+
+.Carta_producto img{
+  width: 100%;
+  height: 250px;
+  object-fit: fill;
+  border-radius: 20px;
+}
+
+.Carta_producto h2{
+padding-top: 10px;
+}
+
+.Carta_producto .btn{
+  position: relative;
+  background: #E4A4C9;
+  width: 100%;
+  padding: 12px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  border: none;
+}
+
+.Carta_producto .btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #E4A4C9  10% , transparent);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.Carta_producto .btn:hover::after {
+  transform: translateY(50%); /* Solo sube hasta la mitad */
+}
+
 
 /* Modal incio de sesion*/
 

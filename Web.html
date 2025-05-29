@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="Style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
@@ -20,20 +23,167 @@
         <nav>
           <ul>
             <li><a href="">Inicio</a></li>
+            <li><a href="#Productos">Productos</a></li>
             <li><a href="">Contacto</a></li>
             <li><a href="">Sobre nosotros</a></li>
             <li><a data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Iniciar sesion</a></li>
           </ul>
         </nav>
       </div>
-
-      <div>
-        asdasd
-        asdasd
- 
-      </div>
     </header>
 
+    <main> 
+
+      <section class="Carrusel">
+
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Solid_red.svg/2048px-Solid_red.svg.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvmvSBmyvV0GBqkgbOln79NVEafDcoCvwL-w&s" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+      </section>
+
+      <section id="Productos" class="Productos">
+        <h1>Productos</h1>
+        <div class="Cartas_productos">
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+
+            <button class="btn">Añadir al carrito</button>
+            
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div> 
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+            <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+
+    
+            <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+        </div>
+        <button id="botonVerMas" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
+      </section>
+
+      <section class="SobreNosotros">
+        
+      </section>
+
+
+    </main>
 
 
 
@@ -161,7 +311,7 @@
 
 
 
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="java/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
