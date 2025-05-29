@@ -1,4 +1,6 @@
 
+// Este script maneja la apertura del modal de registro desde el enlace en el modal de login
+
 document.addEventListener("DOMContentLoaded", function () {
   const registroLink = document.getElementById('registroLink');
   
@@ -26,7 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-    
+
+
+// Este script maneja el envío del formulario de registro y muestra la respuesta del servidor
+
 document.getElementById("registroForm").addEventListener("submit", function(e) {
   e.preventDefault();
   const formData = new FormData(this);
@@ -44,3 +49,39 @@ document.getElementById("registroForm").addEventListener("submit", function(e) {
       alert("Error de conexión con el servidor.");
     });
   });
+
+// funcion mostrar mas para las cartas de productos
+
+document.addEventListener("DOMContentLoaded", () => {
+  const productos = document.querySelectorAll(".Carta_producto");
+  const boton = document.getElementById("botonVerMas");
+
+  const mostrarLimite = 6;
+  let mostrandoTodos = false;
+
+  function actualizarVista() {
+    productos.forEach((producto, index) => {
+      if (!mostrandoTodos && index >= mostrarLimite) {
+        producto.style.display = "none";
+      } else {
+        producto.style.display = "block";
+      }
+    });
+
+    if (productos.length > mostrarLimite) {
+      boton.style.display = "block";
+      boton.textContent = mostrandoTodos ? "Ver menos" : "Ver más";
+    } else {
+      boton.style.display = "none";
+    }
+  }
+
+  // Evento del botón para alternar
+  boton.addEventListener("click", () => {
+    mostrandoTodos = !mostrandoTodos;
+    actualizarVista();
+  });
+
+  // Inicializar vista
+  actualizarVista();
+});
