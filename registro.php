@@ -1,6 +1,6 @@
 <?php
 // Conexión a la base de datos
-$conexion = new mysqli("localhost", "root", "", "trabajo"); // Cambia "tu_base_de_datos"
+$conexion = new mysqli("localhost", "root", "", "trabajo"); 
 
 if ($conexion->connect_error) {
     die("Conexión fallida: " . $conexion->connect_error);
