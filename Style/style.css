@@ -52,9 +52,6 @@ padding: 3px 10px ;
 transition: background-color 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 
-.hcontenedor li a:hover{
-}
-
 /* Carrusel */
 
 .Carrusel .carousel-item img{
@@ -117,16 +114,55 @@ box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 }
 
 .Tipo_Producto {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 6rem;
-  padding: 0.5rem;
-  writing-mode: vertical-rl;
-  text-align: center;
-  box-sizing: border-box;
-  transform: none; 
-  
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 6rem;
+padding: 0.5rem;
+writing-mode: vertical-rl;
+text-align: center;
+box-sizing: border-box;
+transform: none; 
+}
+
+/* Pantallas medianas */
+@media (max-width: 900px) {
+.Carta_tipo_producto{
+width: 50%;
+min-width: 76%;
+height: auto;
+background: #fff;
+font-weight: bold;
+border-radius: 20px;
+margin: 0px 30px 10px 30px;
+box-sizing: border-box;
+}
+.Cartas_productos_TORTAS, .Cartas_productos_COCTEL{
+gap: 10px;
+}
+.Tipo_Producto {
+display: block;
+width: 100%;
+text-align: left;
+writing-mode: horizontal-tb;
+padding: 0.5rem;
+padding: 0;
+color: #000000;
+letter-spacing: 10px;
+text-align: center;
+font-size: 3rem;
+}
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 600px) {
+.Carta_tipo_producto{
+  max-width: 50px;
+}
+
+.Carta_tipo_producto .Tipo_Producto {
+  font-size: 2rem;
+}
 }
 
 .BotonVerMasProducto {
@@ -180,7 +216,6 @@ transform: translateY(50%); /* Solo sube hasta la mitad */
   justify-content: space-between;
   height: 100%;
   box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
-
 }
 
 
@@ -189,6 +224,8 @@ transform: translateY(50%); /* Solo sube hasta la mitad */
   height: 250px;
   object-fit: fill;
   border-radius: 20px;
+  box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+  border: solid 5px #EACDF0;
 }
 
 .Carta_producto h2{
