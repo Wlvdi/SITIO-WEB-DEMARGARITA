@@ -62,7 +62,6 @@ document.getElementById("registroForm").addEventListener("submit", function(e) {
 
 
 // funcion mostrar mas para las cartas de productos TORTAS
-
 document.addEventListener("DOMContentLoaded", () => {
   const productos = document.querySelectorAll(".Cartas_productos_TORTAS .Carta_producto");
   const boton = document.getElementById("botonVerMasTorta");
