@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
+//navbar responsive
 document.querySelectorAll('a[href="#Productos"]').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
@@ -39,6 +39,14 @@ document.querySelectorAll('a[href="#Productos"]').forEach(link => {
     window.scrollTo({ top: targetPosition, behavior: 'smooth' });
   });
 });
+
+//navbar hambuerguesa
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.querySelector('nav');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
 
 // Este script maneja el envío del formulario de registro y muestra la respuesta del servidor
 
