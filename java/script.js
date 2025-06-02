@@ -176,6 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const minDate = `${year}-${month}-${day}`;
 
     deliveryDateInput.setAttribute("min", minDate);
+<<<<<<< HEAD
   });
 
 
@@ -294,3 +295,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+=======
+  });
+>>>>>>> 689339ebf5a3104d85e4b1fa510148d139829610
