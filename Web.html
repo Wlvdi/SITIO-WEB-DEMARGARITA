@@ -14,15 +14,15 @@
 </head>
 
 
-<body>
+<body id="Inicio">
     <header>
-      <div class="hcontenedor">
+      <div  class="hcontenedor">
         <!-- Logo -->
         <img src="Imagenes\DeMargarita.png" alt="Logo" class="logo">
         <!-- Menú de navegación -->
         <nav>
           <ul>
-            <li><a href="">Inicio</a></li>
+            <li><a href="#Inicio">Inicio</a></li>
             <li><a href="#Productos">Productos</a></li>
             <li><a href="">Contacto</a></li>
             <li><a href="">Sobre nosotros</a></li>
@@ -34,7 +34,7 @@
 
     <main> 
 
-      <section class="Carrusel">
+      <section  class="Carrusel">
 
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -65,27 +65,24 @@
 
       </section>
 
-      <section id="Productos" class="Productos">
-        <h1>Productos</h1>
-        <div class="Cartas_productos">
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
+      <section  class="Productos">
+        <h1 id="Productos">PRODUCTOS</h1>
 
-            <button class="btn">Añadir al carrito</button>
-            
+        <div class="Tortas_seccion">
+          <div class="Cartas_productos_TORTAS" id="CartasTortas">
+          <div class="Carta_tipo_producto">
+            <h2 class="Tipo_Producto">TORTAS</h2>
           </div>
           <div class="Carta_producto">
             <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
             <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
+            <p>Desasdasdadasdasdasdasdasdasdasdasdc</p>
             <button class="btn">Añadir al carrito</button>
           </div> 
           <div class="Carta_producto">
             <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
             <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
+            <p>Descripción breve del pddddddasdasdasdasdasdsadadsadasdroducto 1.</p>
             <button class="btn">Añadir al carrito</button>
           </div>
           <div class="Carta_producto">
@@ -143,7 +140,6 @@
             <button class="btn">Añadir al carrito</button>
           </div>
 
-    
             <div class="Carta_producto">
             <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
             <h2>Producto 1</h2>
@@ -175,12 +171,200 @@
             <button class="btn">Añadir al carrito</button>
           </div>
         </div>
-        <button id="botonVerMas" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
+        <button id="botonVerMasTorta" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
+        <button
+        class="BotonVerMasProducto"
+        data-bs-toggle="modal"
+        data-bs-target="#adminModal"
+        data-categoria="torta">
+        Añadir producto a tortas
+        </button>
+        </div>
+
+        <div class="Coctel_seccion">
+          <div class="Cartas_productos_COCTEL" id="CartasCoctel">
+          <div class="Carta_tipo_producto">
+            <h2 class="Tipo_Producto">COCTEL</h2>
+          </div>
+          <div class="Carta_producto">
+            <img src="Imagenes\Coctel2.png" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Desasdasdadasdasdasdasdasdasdasdasdc</p>
+            <button class="btn">Añadir al carrito</button>
+          </div> 
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del pddddddasdasdasdasdasdsadadsadasdroducto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+            <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+
+            <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+          <div class="Carta_producto">
+            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción breve del producto 1.</p>
+            <button class="btn">Añadir al carrito</button>
+          </div>
+        </div>
+        <button id="botonVerMasCoctel" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
+        <button
+        class="BotonVerMasProducto"
+        data-bs-toggle="modal"
+        data-bs-target="#adminModal"
+        data-categoria="coctel">
+        Añadir producto a coctel
+        </button>
+        </div>
+        
+
+        <div class="TortaPersonalizada_seccion">
+          <h1>TORTAS PERSONALIZADAS</h1>
+            <div class="Imagen_TortasPersonalizadas">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvmvSBmyvV0GBqkgbOln79NVEafDcoCvwL-w&s" alt="Torta Personalizada">
+              <img src="Imagenes\torta2.png" alt="Torta Personalizada">
+              <img src="Imagenes\torta2.png" alt="Torta Personalizada">
+              <img src="Imagenes\torta2.png" alt="Torta Personalizada">
+              <img src="Imagenes\torta2.png" alt="Torta Personalizada">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvmvSBmyvV0GBqkgbOln79NVEafDcoCvwL-w&s" alt="Torta Personalizada">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvmvSBmyvV0GBqkgbOln79NVEafDcoCvwL-w&s" alt="Torta Personalizada">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvmvSBmyvV0GBqkgbOln79NVEafDcoCvwL-w&s" alt="Torta Personalizada">
+            </div>
+            <div class="Texto_TortaPersonalizada">
+              <div class="Columna_texto">
+              <h2>¡Crea tu propia torta!</h2>
+              <p>Elige los sabores, el diseño y los ingredientes para hacer una torta única y deliciosa.</p> 
+              </div>
+              <button data-bs-toggle="modal" data-bs-target="#TortaPersonalizadaModal" href="#" class="BotonComenzarTorta">Comenzar</button>
+            </div>
+
+
+            
+        </div>
+
       </section>
 
       <section class="SobreNosotros">
         
       </section>
+
+<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 1rem;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adminModalLabel">Añadir nuevo producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formNuevoProducto" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="nombreProducto" class="form-label">Nombre del producto</label>
+    <input type="text" class="form-control" name="nombre" id="nombreProducto" required>
+  </div>
+  <div class="mb-3">
+    <label for="descripcionProducto" class="form-label">Descripción</label>
+    <input type="text" class="form-control" name="descripcion" id="descripcionProducto" required>
+  </div>
+  <div class="mb-3">
+    <label for="imagen" class="form-label">Imagen del producto</label>
+    <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*" required>
+  </div>
+  <div class="mb-3">
+    <label for="precioProducto" class="form-label">Precio</label>
+    <input type="number" class="form-control" name="precio" id="precioProducto" min="1000" required>
+  </div>
+   <div class="mb-3">
+    <input type="hidden" name="categoria" id="categoriaProducto" value="">
+  </div>
+
+      
+          <button type="submit" class="btn btn-success">Subir producto</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
     </main>
@@ -307,10 +491,60 @@
   </div>
 </div>
 
+<!-- Modal de Torta personalizada -->
+<div class="modal fade" id="TortaPersonalizadaModal" tabindex="-1" aria-labelledby="customCakeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" id="TortaPersonalizadaContent" action="TortaPersonalizada.php" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TortaPersonalizadalLabel">Personaliza tu torta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
 
+        <div class="mb-3">
+          <label for="flavor" class="form-label">Sabor</label>
+          <select class="form-select" id="flavor" name="flavor" required>
+            <option value="">Selecciona un sabor</option>
+            <option>Chocolate</option>
+            <option>Vainilla</option>
+            <option>Fresa</option>
+            <option>Red Velvet</option>
+          </select>
+        </div>
 
-<h1>HOLA</h1>
-<h1>asdasd22asd234213aefse2345 rtyh</h1>
+        <div class="mb-3">
+          <label for="size" class="form-label">Tamaño</label>
+          <select class="form-select" id="size" name="size"  required>
+            <option value="">Selecciona un tamaño</option>
+            <option>Pequeña (6 porciones)</option>
+            <option>Mediana (10 porciones)</option>
+            <option>Grande (20 porciones)</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="message" class="form-label">Mensaje en la torta</label>
+          <input type="text" class="form-control" id="message" maxlength="50" placeholder="Feliz cumpleaños, Ana">
+        </div>
+
+        <div class="mb-3">
+          <label for="deliveryDate" class="form-label">Fecha de entrega</label>
+          <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="details" class="form-label">Detalles adicionales</label>
+          <textarea class="form-control" id="details" rows="3" placeholder="Colores, temática, alergias, etc."></textarea>
+        </div>
+
+      </div>
+      <div class="Modal_Footer">
+        <button type="button" class="btnModalTortaCancelar" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btnModalTortaEnviar">Enviar solicitud</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 

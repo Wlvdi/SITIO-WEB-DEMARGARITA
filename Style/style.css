@@ -52,9 +52,6 @@ padding: 3px 10px ;
 transition: background-color 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 
-.hcontenedor li a:hover{
-}
-
 /* Carrusel */
 
 .Carrusel .carousel-item img{
@@ -80,55 +77,198 @@ position: relative;
   text-decoration: none;
 }
 
-.Cartas_productos{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 35px;
+.Tortas_seccion{
+background: #EACDF0        ;
+border-radius: 30px 30px 30px 30px;
+padding: 32px 0 24px 0;
+margin: 0px 10px 10px 10px;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+}
+.Coctel_seccion {
+background: #EACDF0    ;
+border-radius: 30px 30px 30px 30px;
+padding: 32px 0 24px 0;
+margin: 25px 10px 10px 10px;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+}
+
+.Cartas_productos_TORTAS, .Cartas_productos_COCTEL{
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 35px;
+}
+
+.Carta_tipo_producto {
+max-width: 200px;
+max-height: 500px;
+background: #ffffff;
+font-weight: bold;
+display: flex;
+align-items: center;
+justify-content: center; /* centra horizontalmente el h2 */
+width: 200px; /* asegúrate de que tenga ancho fijo */
+height: 500px; /* asegúrate de que tenga alto fijo */
+border-radius: 20px;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+}
+
+.Tipo_Producto {
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 6rem;
+padding: 0.5rem;
+writing-mode: vertical-rl;
+text-align: center;
+box-sizing: border-box;
+transform: none; 
+}
+
+/* Pantallas medianas */
+@media (max-width: 900px) {
+.Carta_tipo_producto{
+width: 50%;
+min-width: 76%;
+height: auto;
+background: #fff;
+font-weight: bold;
+border-radius: 20px;
+margin: 0px 30px 10px 30px;
+box-sizing: border-box;
+}
+.Cartas_productos_TORTAS, .Cartas_productos_COCTEL{
+gap: 10px;
+}
+.Tipo_Producto {
+display: block;
+width: 100%;
+text-align: left;
+writing-mode: horizontal-tb;
+padding: 0.5rem;
+padding: 0;
+color: #000000;
+letter-spacing: 10px;
+text-align: center;
+font-size: 3rem;
+}
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 600px) {
+.Carta_tipo_producto{
+  max-width: 50px;
+}
+
+.Carta_tipo_producto .Tipo_Producto {
+  font-size: 2rem;
+}
 }
 
 .BotonVerMasProducto {
-  position:relative;
-  background: #E4A4C9;
-  padding: 5px 50px 5px 50px;
-  color: white;
-  border-radius: 50px;
-  overflow: hidden;
-  margin: 20px auto;
-  font-size: 1.3rem;
+position:relative;
+background: #EACDF0;
+padding: 5px 50px 5px 50px;
+color: white;
+border-radius: 50px;
+overflow: hidden;
+margin: 20px auto;
+font-size: 1.3rem;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+transition: 
+box-shadow 0.2s cubic-bezier(0.4,0,1,1),
+transform 0.2s cubic-bezier(0.4,0,1,1);
+}
+
+.BotonVerMasProducto:hover{
+
+transform: translateY(-6px) scale(1.03);
+box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
+}
+
+.BotonVerMasProducto::after {
+content: '';
+position: absolute;
+inset: 0;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to top, #ebbdfc  10% , transparent);
+transform: translateY(100%);
+transition: transform 0.3s ease;
+}
+
+
+.BotonVerMasProducto:hover::after {
+transform: translateY(50%); /* Solo sube hasta la mitad */
 }
 
 .Carta_producto{
-  background-color: #ffff;
+  background-color: #F9E8F6;
   padding: 16px;
   border-radius: 8px;
   display: none; /* Ocultas inicialmente */
+  max-width: 280px;
+  max-height: 500px;
+  min-width:280px;
+  min-height:500px;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 }
+
 
 .Carta_producto img{
   width: 100%;
   height: 250px;
   object-fit: fill;
   border-radius: 20px;
+  box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+  border: solid 5px #EACDF0;
 }
 
 .Carta_producto h2{
 padding-top: 10px;
 }
 
-.Carta_producto .btn{
-  position: relative;
-  background: #E4A4C9;
-  width: 100%;
-  padding: 12px;
-  color: white;
-  text-align: center;
-  border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  z-index: 1;
-  border: none;
+.Carta_producto p{
+display: flex;
+flex-grow: 1;
+flex-shrink: 1;
+flex-basis: 1;
+flex-wrap: wrap;
+max-width: 100%;
+min-height: 90px;
+min-height: 90px;
+width: 100%;
+padding-top: 10px;
+overflow-wrap: break-word;
+word-break: break-word;
+box-sizing: border-box;
 }
+
+.Carta_producto .btn{
+position: relative;
+background: #E3C0E8 ;
+width: 100%;
+padding: 12px;
+color: white;
+text-align: center;
+border-radius: 10px;
+overflow: hidden;
+cursor: pointer;
+z-index: 1;
+border: none;
+margin-top: auto;
+margin-bottom: 16px;
+box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.158);
+transition: 
+box-shadow 0.2s cubic-bezier(0.4,0,1,1),
+transform 0.2s cubic-bezier(0.4,0,1,1);
+}
+
 
 .Carta_producto .btn::after {
   content: '';
@@ -138,15 +278,19 @@ padding-top: 10px;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, #E4A4C9  10% , transparent);
+  background: linear-gradient(to top, #ffffff  10% , transparent);
   transform: translateY(100%);
   transition: transform 0.3s ease;
 }
 
 .Carta_producto .btn:hover::after {
-  transform: translateY(50%); /* Solo sube hasta la mitad */
+transform: translateY(50%); /* Solo sube hasta la mitad */
 }
 
+.Carta_producto .btn:hover {
+transform: translateY(-6px) scale(1.03);
+box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
+}
 
 /* Modal incio de sesion*/
 
@@ -161,6 +305,152 @@ padding-top: 10px;
 
 .ButtonIniciar:hover{
   background-color: rgb(244, 197, 240);
+}
+
+/* Tortas personalizadas */
+.TortaPersonalizada_seccion{
+background: #c2f8f1 ;
+align-items: center;
+border-radius: 30px 30px 30px 30px;
+padding: 32px 20px 24px 20px;
+margin: 25px 10px 10px 10px;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+}
+.TortaPersonalizada_seccion h1{
+padding-top: 20px;
+padding-bottom: 20px;
+margin: 0;
+text-align: center;
+font-size: 2rem;
+text-decoration: none;
+}
+
+.Imagen_TortasPersonalizadas{
+background: #dfdceb;
+display: flex;
+border-radius: 20px;
+flex-wrap: wrap;
+box-sizing: border-box;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+max-width: 100%; /* o el valor que prefieras */
+}
+
+.Imagen_TortasPersonalizadas img{
+padding: 5px;
+width: 20%;
+object-fit: fill;
+border-radius: 20px;
+}
+
+.Texto_TortaPersonalizada {
+  display: flex;
+  align-items: stretch;
+  padding: 10px;
+  margin: 20px 0 0 0px;
+  min-width: 200px;
+  gap: 0;
+}
+
+.Texto_TortaPersonalizada .Columna_texto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+}
+
+.Texto_TortaPersonalizada h2,
+.Texto_TortaPersonalizada p {
+  margin: 0;
+  text-align: center;
+  padding: 8px 0;
+  background: none;
+}
+
+.BotonComenzarTorta {
+position:relative;
+width: 30%;
+background: #c2f8f1;
+padding: 5px 50px 5px 50px;
+color: rgb(0, 0, 0);
+border-radius: 50px;
+overflow: hidden;
+margin: 20px auto;
+font-size: 1.3rem;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+transition: 
+box-shadow 0.2s cubic-bezier(0.4,0,1,1),
+transform 0.2s cubic-bezier(0.4,0,1,1);
+}
+
+.BotonComenzarTorta:hover {
+  background: #EACDF0;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
+  transform: translateY(-6px) scale(1.03);
+}
+
+.BotonComenzarTorta::after {
+content: '';
+position: absolute;
+inset: 0;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to top, #c2f8f1  10% , transparent);
+transform: translateY(100%);
+transition: transform 0.3s ease;
+}
+
+
+.BotonComenzarTorta:hover::after {
+transform: translateY(50%);
+}
+
+
+
+
+/* Modal TortaPersonalizada */
+
+#TortaPersonalizadaContent{
+  background: #F9E8F6;
+}
+
+#flavor, #size , #message, #deliveryDate, #details{
+ background-color: #EDD9Ff;
+ border: solid 1px #000000;
+ transition: 
+box-shadow 0.2s cubic-bezier(0.4,0,1,1),
+transform 0.2s cubic-bezier(0.4,0,1,1);
+}
+
+#flavor:hover,#size:hover , #message:hover, #deliveryDate:hover, #details:hover{
+transform: translateY(-6px) scale(1.03);
+box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
+}
+
+.Modal_Footer{
+justify-content: center;
+display: flex;
+padding: 0 0 10px 10px;
+}
+
+.btnModalTortaCancelar,
+.btnModalTortaEnviar{
+box-sizing: border-box;
+background-color: #F9E8F6;
+box-shadow: 4px 4px 10px -4px rgb(0, 0, 0);
+border-radius: 40px;
+padding: 10px;
+transition:box-shadow 0.2s cubic-bezier(0.4,0,1,1),
+transform 0.2s cubic-bezier(0.4,0,1,1);
+margin: 0 10px 0 10px;
+}
+
+.btnModalTortaCancelar:hover,
+.btnModalTortaEnviar:hover{
+background-color: #EDD9Ff;
+transform: translateY(-6px) scale(1.03);
+box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
 }
 
 /* Modal registro */
