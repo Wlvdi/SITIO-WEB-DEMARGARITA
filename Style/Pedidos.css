@@ -1,0 +1,163 @@
+body {
+box-sizing: border-box;
+background-color: #F9E8F6 !important;
+margin: 100px;
+padding: 0;
+font-family: 'Nunito', sans-serif;
+}
+
+main {
+    height: 100vh;
+    background-color: #F9E8F6;
+}
+/* HEADER */
+header{
+background: #F9E8F6;
+position: sticky;
+top: 0;
+z-index: 1000;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hcontenedor{
+padding: 10px 50px;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+}
+
+.logo{
+width: 10vw;
+max-width: 80px;
+height: auto;
+cursor: pointer;
+}
+
+nav{
+margin-left: auto; 
+}
+
+.hcontenedor ul{
+display: flex;
+flex-wrap: wrap;
+min-width: 20px;
+gap: 15px;
+
+}
+
+.hcontenedor li a{
+font-family: 'Nunito', sans-serif;
+color: #000000;
+text-decoration: none;
+font-size: 20px;
+border-radius: 10px;
+padding: 3px 10px ;
+transition: background-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.hamburger {
+display: none;
+font-size: 2rem;
+cursor: pointer;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 900px) {
+
+.logo{
+width: 15vw;
+height: auto;
+cursor: pointer;
+}
+
+.hcontenedor{
+padding: 10px;
+justify-content: space-between;
+
+}
+
+nav{
+display: none;
+flex-direction: column;
+background: #F9E8F6;
+position: absolute;
+left: 0; 
+right: auto; 
+width: 200px;
+padding: 1rem;
+top: 48px;
+right: 0px;
+border-radius:  0 0 0 20px;
+}
+
+nav.active {
+display: flex;
+}
+
+nav.active ul li a{
+font-size: 1rem;
+border-bottom: 1px solid #000000;
+border-radius: 0px;
+text-align: left;
+padding-left: 0;
+}
+
+nav.active ul li a:active{
+color: #fff;
+}
+
+.hamburger {
+display: block;
+}
+}
+
+/* Diseño torta */
+
+.contenedor-pedidos {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+padding: 20px;
+margin: 0 20px 0 20px;
+background-color: #EACDF0;
+border-radius: 20px;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+}
+
+.carta-pedido {
+border: 1px solid #ccc;
+border-radius: 10px;
+padding: 15px;
+background-color: #F9E8F6;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+transition: transform 0.2s cubic-bezier(0.4,0,1,1);
+}
+
+
+.carta-pedido:hover {
+transform: translateY(-6px) scale(1.03);
+box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
+}
+
+
+
+.TituloPedidos{
+background-color: #fff;
+margin: 20px;
+text-align: center;
+border-radius: 20px;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+}
+
+.carta-pedido h3 {
+margin-top: 0;
+border-bottom: solid 2px #ccc;
+}
+
+.carta-pedido p {
+margin: 4px 0;
+}
+
+.entrega{
+    border-bottom: solid 2px #ccc;
+}

@@ -1,0 +1,78 @@
+=== INICIO DEBUG ===
+Método: POST
+POST data: Array
+(
+    [nombre] => 1233123
+    [descripcion] => 123123
+    [precio] => 123123
+    [categoria] => torta
+)
+
+FILES data: Array
+(
+    [imagen] => Array
+        (
+            [name] => ChatGPT Image 1 abr 2025, 22_32_13.png
+            [type] => image/png
+            [tmp_name] => E:\xamp\tmp\php8601.tmp
+            [error] => 0
+            [size] => 2569108
+        )
+
+)
+
+Datos procesados: nombre=1233123, precio=123123, categoria=torta
+Imagen recibida: ChatGPT Image 1 abr 2025, 22_32_13.png, size: 2569108
+Intentando mover archivo a: Imagenes/1749320643_684483c3982df.png
+Archivo movido exitosamente
+Éxito: Array
+(
+    [exito] => 1
+    [mensaje] => Producto agregado exitosamente
+    [id] => 5
+    [nombre] => 1233123
+    [descripcion] => 123123
+    [precio] => 123123
+    [imagen] => Imagenes/1749320643_684483c3982df.png
+    [categoria] => torta
+)
+
+=== INICIO DEBUG ===
+Método: POST
+POST data: Array
+(
+    [nombre] => 1233123
+    [descripcion] => 123123
+    [precio] => 123123
+    [categoria] => torta
+)
+
+FILES data: Array
+(
+    [imagen] => Array
+        (
+            [name] => ChatGPT Image 1 abr 2025, 22_32_13.png
+            [type] => image/png
+            [tmp_name] => E:\xamp\tmp\php4A09.tmp
+            [error] => 0
+            [size] => 2569108
+        )
+
+)
+
+Datos procesados: nombre=1233123, precio=123123, categoria=torta
+Imagen recibida: ChatGPT Image 1 abr 2025, 22_32_13.png, size: 2569108
+Intentando mover archivo a: Imagenes/1749320759_684484374eab3.png
+Archivo movido exitosamente
+Éxito: Array
+(
+    [exito] => 1
+    [mensaje] => Producto agregado exitosamente
+    [id] => 6
+    [nombre] => 1233123
+    [descripcion] => 123123
+    [precio] => 123123
+    [imagen] => Imagenes/1749320759_684484374eab3.png
+    [categoria] => torta
+)
+

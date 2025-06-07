@@ -1,3 +1,92 @@
+<?php
+session_start();
+$esAdmin = isset($_SESSION['tipousuario']) && $_SESSION['tipousuario'] === 'admin';
+$logueado = isset($_SESSION['nombre']) && isset($_SESSION['tipousuario']);
+$nombre = $logueado ? htmlspecialchars($_SESSION['nombre']) : '';
+$tipousuario = $logueado ? $_SESSION['tipousuario'] : '';
+
+// Habilitar reporte de errores para depuración
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// FUNCIÓN CARGAR PRODUCTOS - DEFINIR PRIMERO
+function cargarProductos($categoria) {
+    $productos = [];
+    
+    try {
+        // Intentar conexión
+        $conexion = new mysqli("localhost", "root", "", "trabajo");
+        
+        // Verificar conexión
+        if ($conexion->connect_error) {
+            error_log("❌ Error de conexión: " . $conexion->connect_error);
+            return $productos;
+        }
+        
+        // Configurar charset
+        $conexion->set_charset("utf8");
+        
+        // Verificar que la tabla existe
+        $checkTable = $conexion->query("SHOW TABLES LIKE 'productos'");
+        if ($checkTable->num_rows == 0) {
+            error_log("❌ La tabla 'productos' no existe");
+            $conexion->close();
+            return $productos;
+        }
+        
+        // Preparar la consulta
+        $sql = "SELECT * FROM productos WHERE categoria = ? ORDER BY id_producto DESC";
+        $stmt = $conexion->prepare($sql);
+        
+        // Verificar que prepare() funcionó
+        if ($stmt === false) {
+            error_log("❌ Error al preparar la consulta: " . $conexion->error);
+            $conexion->close();
+            return $productos;
+        }
+        
+        // Bind parameters
+        $stmt->bind_param("s", $categoria);
+        
+        // Ejecutar consulta
+        if (!$stmt->execute()) {
+            error_log("❌ Error al ejecutar la consulta: " . $stmt->error);
+            $stmt->close();
+            $conexion->close();
+            return $productos;
+        }
+        
+        // Obtener resultados
+        $resultado = $stmt->get_result();
+        
+        // Procesar resultados
+        while ($producto = $resultado->fetch_assoc()) {
+            $productos[] = $producto;
+        }
+        
+        $stmt->close();
+        $conexion->close();
+        
+    } catch (Exception $e) {
+        error_log("❌ Excepción cargando productos: " . $e->getMessage());
+    }
+    
+    return $productos;
+}
+
+// CARGAR PRODUCTOS DESPUÉS DE DEFINIR LA FUNCIÓN
+$productosTortas = cargarProductos('torta');
+$productosCoctel = cargarProductos('coctel');
+
+// Debug para verificar
+echo "<!-- Debug: Productos tortas cargados: " . count($productosTortas) . " -->";
+echo "<!-- Debug: Productos coctel cargados: " . count($productosCoctel) . " -->";
+
+if (!empty($productosTortas)) {
+    echo "<!-- Debug: Primer producto torta: " . htmlspecialchars($productosTortas[0]['nombre']) . " -->";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,11 +111,26 @@
         <!-- Menú de navegación -->
         <nav>
           <ul>
-            <li><a href="#Inicio">Inicio</a></li>
-            <li><a href="#Productos">Productos</a></li>
-            <li><a href="">Contacto</a></li>
-            <li><a href="">Sobre nosotros</a></li>
-            <li><a data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Iniciar sesion</a></li>
+
+                <li><a href="#Inicio">Inicio</a></li>
+                <li><a href="#Productos">Productos</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="#">Sobre nosotros</a></li>
+
+                <?php if ($esAdmin): ?>
+                  <li><a href="Pedidos.php">Pedidos</a></li>
+                <?php endif; ?>
+
+                <!-- Ícono de usuario/admin -->
+                <?php if ($logueado): ?>
+                  <li><a href="#"><?= $esAdmin ? '👑' : '👤' ?> </a></li>
+                <!-- Cerrar sesión -->
+                <li><a href="logout.php">Cerrar sesión</a></li>
+                <?php else: ?>
+                <li><a data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Iniciar sesión</a></li>
+                <?php endif; ?>
+            
+
           </ul>
         </nav>
           <div class="hamburger" id="hamburger">
@@ -72,217 +176,79 @@
         <h1 id="Productos">PRODUCTOS</h1>
 
         <div class="Tortas_seccion">
-          <div class="Cartas_productos_TORTAS">
-          <div class="Carta_tipo_producto">
-            <h2 class="Tipo_Producto">TORTAS</h2>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Desasdasdadasdasdasdasdasdasdasdasdc</p>
-            <button class="btn">Añadir al carrito</button>
-          </div> 
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del pddddddasdasdasdasdasdsadadsadasdroducto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-            <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
+          <div class="Cartas_productos_TORTAS" id="CartasTortas">
+            <div class="Carta_tipo_producto">
+              <h2 class="Tipo_Producto">TORTAS</h2>
+            </div>
+
+            <?php 
+              // NUEVA LÓGICA: Mostrar productos dinámicos desde BD
+              if (!empty($productosTortas)): 
+                  foreach ($productosTortas as $producto): ?>
+                      <div class="Carta_producto">
+                          <img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>">
+                          <h2><?= htmlspecialchars($producto['nombre']) ?></h2>
+                          <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
+                          <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
+                          <button class="btn">Añadir al carrito</button>
+                      </div>
+                  <?php endforeach;
+              else: 
+                  // Productos por defecto si no hay en BD
+              ?>
+                  <div class="Carta_producto">
+                    <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+                    <h2>Torta Ejemplo</h2>
+                    <p>Descripción de ejemplo.</p>
+                    <button class="btn">Añadir al carrito</button>
+                  </div>
+            <?php endif; ?>
+
+        </div>
+          <div class="BotonesEnd">
+            <button id="botonVerMasTorta" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
+            <?php if ($esAdmin): ?>     
+              <button class="BotonVerMasProducto" data-bs-toggle="modal" data-bs-target="#adminModal" data-categoria="torta">Añadir producto</button>
+            <?php endif; ?>
           </div>
 
-            <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-        </div>
-        <button id="botonVerMasTorta" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
         </div>
 
         <div class="Coctel_seccion">
-          <div class="Cartas_productos_COCTEL">
-          <div class="Carta_tipo_producto">
-            <h2 class="Tipo_Producto">COCTEL</h2>
-          </div>
-          <div class="Carta_producto">
-            <img src="Imagenes\Coctel2.png" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Desasdasdadasdasdasdasdasdasdasdasdc</p>
-            <button class="btn">Añadir al carrito</button>
-          </div> 
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del pddddddasdasdasdasdasdsadadsadasdroducto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-            <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-
-            <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
-          </div>
-          <div class="Carta_producto">
-            <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
-            <h2>Producto 1</h2>
-            <p>Descripción breve del producto 1.</p>
-            <button class="btn">Añadir al carrito</button>
+          <div class="Cartas_productos_COCTEL" id="CartasCoctel">
+            <div class="Carta_tipo_producto">
+              <h2 class="Tipo_Producto">COCTEL</h2>
+            </div>
+            <?php 
+              // NUEVA LÓGICA: Mostrar productos dinámicos desde BD
+              if (!empty($productosCoctel)): 
+                  foreach ($productosCoctel as $producto): ?>
+                      <div class="Carta_producto">
+                          <img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>">
+                          <h2><?= htmlspecialchars($producto['nombre']) ?></h2>
+                          <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
+                          <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
+                          <button class="btn">Añadir al carrito</button>
+                      </div>
+                  <?php endforeach;
+              else: 
+                  // Productos por defecto si no hay en BD
+              ?>
+                  <div class="Carta_producto">
+                    <img src="https://fancywalls.eu/wp-content/uploads/solid-color-burgundy-pattern-repeat-removable-wallpaper-design-683x1024.jpg" alt="Producto 1">
+                    <h2>Torta Ejemplo</h2>
+                    <p>Descripción de ejemplo.</p>
+                    <button class="btn">Añadir al carrito</button>
+                  </div>
+            <?php endif; ?>
+        </div>
+          <div class="BotonesEnd">
+            <button id="botonVerMasCoctel" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
+            <?php if ($esAdmin): ?> 
+            <button class="BotonVerMasProducto" data-bs-toggle="modal" data-bs-target="#adminModal" data-categoria="coctel">Añadir producto</button>
+            <?php endif; ?>
           </div>
         </div>
-        <button id="botonVerMasCoctel" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
-        </div>
-       
 
         <div class="TortaPersonalizada_seccion">
           <h1>TORTAS PERSONALIZADAS</h1>
@@ -303,17 +269,11 @@
               </div>
               <button data-bs-toggle="modal" data-bs-target="#TortaPersonalizadaModal" href="#" class="BotonComenzarTorta">Comenzar</button>
             </div>
-
-
-            
         </div>
-
       </section>
 
       <section class="SobreNosotros">
-        
       </section>
-
 
     </main>
 
@@ -472,7 +432,7 @@
 
         <div class="mb-3">
           <label for="message" class="form-label">Mensaje en la torta</label>
-          <input type="text" class="form-control" id="message" maxlength="50" placeholder="Feliz cumpleaños, Ana">
+          <input type="text" class="form-control" id="message" name="message" maxlength="50" placeholder="Feliz cumpleaños, Ana">
         </div>
 
         <div class="mb-3">
@@ -482,7 +442,7 @@
 
         <div class="mb-3">
           <label for="details" class="form-label">Detalles adicionales</label>
-          <textarea class="form-control" id="details" rows="3" placeholder="Colores, temática, alergias, etc."></textarea>
+          <textarea class="form-control" id="details" name="details" rows="3" placeholder="Colores, temática, alergias, etc."></textarea>
         </div>
 
       </div>
@@ -494,7 +454,43 @@
   </div>
 </div>
 
-
+<?php if ($esAdmin): ?>  
+<!-- Modal agregar producto -->
+<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 1rem;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adminModalLabel">Añadir nuevo producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formNuevoProducto" enctype="multipart/form-data" method="POST">
+          <div class="mb-3">
+            <label for="nombreProducto" class="form-label">Nombre del producto</label>
+            <input type="text" class="form-control" name="nombre" id="nombreProducto" required>
+          </div>
+          <div class="mb-3">
+            <label for="descripcionProducto" class="form-label">Descripción</label>
+            <input type="text" class="form-control" name="descripcion" id="descripcionProducto" required>
+          </div>
+          <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen del producto</label>
+            <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*" required>
+          </div>
+          <div class="mb-3">
+            <label for="precioProducto" class="form-label">Precio</label>
+            <input type="number" class="form-control" name="precio" id="precioProducto" min="1000" required>
+          </div>
+          <div class="mb-3">
+            <input type="hidden" name="categoria" id="categoriaProducto" value="">
+          </div>
+          <button type="submit" class="btn btn-success">Subir producto</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="java/script.js"></script>

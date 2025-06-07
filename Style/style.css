@@ -134,14 +134,14 @@ text-decoration: none;
 }
 
 .Tortas_seccion{
-background: #EACDF0        ;
+background: linear-gradient(to top, #EACDF0  50% , transparent);
 border-radius: 30px 30px 30px 30px;
 padding: 32px 0 24px 0;
 margin: 0px 10px 10px 10px;
 box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 }
 .Coctel_seccion {
-background: #EACDF0    ;
+background: linear-gradient(to top, #EACDF0  50% , transparent);
 border-radius: 30px 30px 30px 30px;
 padding: 32px 0 24px 0;
 margin: 25px 10px 10px 10px;
@@ -221,6 +221,11 @@ font-size: 3rem;
 }
 }
 
+.BotonesEnd{
+display: flex;
+justify-content: center;
+}
+
 .BotonVerMasProducto {
 position:relative;
 background: #EACDF0;
@@ -260,6 +265,8 @@ transition: transform 0.3s ease;
 transform: translateY(50%); /* Solo sube hasta la mitad */
 }
 
+
+
 .Carta_producto{
   background-color: #F9E8F6;
   padding: 16px;
@@ -287,22 +294,49 @@ transform: translateY(50%); /* Solo sube hasta la mitad */
 
 .Carta_producto h2{
 padding-top: 10px;
+max-width: 100%;
+font-size: 1.5rem;
 }
 
-.Carta_producto p{
+.Carta_producto .descripcion{
 display: flex;
 flex-grow: 1;
 flex-shrink: 1;
 flex-basis: 1;
 flex-wrap: wrap;
 max-width: 100%;
-min-height: 90px;
-min-height: 90px;
 width: 100%;
 padding-top: 10px;
 overflow-wrap: break-word;
 word-break: break-word;
 box-sizing: border-box;
+font-size: 1rem;
+min-height: 70px;
+max-height: 70px;         /* Altura máxima visible */
+overflow-y: auto;         /* Scroll vertical */
+scrollbar-width: thin;    /* Firefox: scroll delgado */
+scrollbar-color: #E3C0E8 #F9E8F6; /* Firefox: colores */
+}
+
+/*Scroll personalizado para Chrome, Edge y Safari */
+.Carta_producto p::-webkit-scrollbar {
+  width: 8px;
+  background: #F9E8F6;
+  border-radius: 8px;
+}
+
+.Carta_producto p::-webkit-scrollbar-thumb {
+  background: #E3C0E8;
+  border-radius: 8px;
+}
+
+.Carta_producto p::-webkit-scrollbar-thumb:hover {
+  background: #c49ad1;
+}
+
+.Carta_producto .precio{
+font-size: 1.2rem;
+font-weight: bold;
 }
 
 .Carta_producto .btn{
@@ -392,7 +426,7 @@ transform: translateY(50%);
 
 /* Tortas personalizadas */
 .TortaPersonalizada_seccion{
-background: #c2f8f1 ;
+background:linear-gradient(to top, #c2f8f1  70% , transparent);
 align-items: center;
 border-radius: 30px 30px 30px 30px;
 padding: 32px 20px 24px 20px;
@@ -429,15 +463,15 @@ border-radius: 20px;
 }
 
 .Texto_TortaPersonalizada {
-  display: flex;
-  align-items: stretch;
-  padding: 10px;
-  margin: 20px 0 0 0px;
-  min-width: 200px;
-  gap: 0;
-  background-color: #ffff;
-  border-radius: 20px;
-  
+display: flex;
+align-items: stretch;
+padding: 10px;
+margin: 20px 0 0 0px;
+min-width: 200px;
+gap: 0;
+background-color: #ffff;
+border-radius: 20px;
+
 }
 
 .Texto_TortaPersonalizada .Columna_texto {
