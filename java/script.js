@@ -270,8 +270,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
   // ✅ Enviar nuevo producto al backend
   const form = document.getElementById("formNuevoProducto");
   
@@ -408,6 +411,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
   }
+<<<<<<< HEAD
 });
 
 
@@ -463,3 +467,6 @@ document.addEventListener("click", function (e) {
         });
     }
   }});
+=======
+});
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e

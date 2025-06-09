@@ -191,12 +191,15 @@ if (!empty($productosTortas)) {
                           <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
                           <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
                           <button class="btn">Añadir al carrito</button>
+<<<<<<< HEAD
 
                           <?php if ($esAdmin): ?>  
                             <button class='btn btn-editar' data-categoria="torta" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
                             <button class='btn btn-eliminar' data-categoria="torta" data-id='<?= $producto['id_producto'] ?>'> Eliminar</button>
                           <?php endif; ?>
 
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
                       </div>
                   <?php endforeach;
               else: 
@@ -215,7 +218,10 @@ if (!empty($productosTortas)) {
             <button id="botonVerMasTorta" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
             <?php if ($esAdmin): ?>     
               <button class="BotonVerMasProducto" data-bs-toggle="modal" data-bs-target="#adminModal" data-categoria="torta">Añadir producto</button>
+<<<<<<< HEAD
             
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
             <?php endif; ?>
           </div>
 
@@ -236,12 +242,15 @@ if (!empty($productosTortas)) {
                           <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
                           <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
                           <button class="btn">Añadir al carrito</button>
+<<<<<<< HEAD
 
                             <?php if ($esAdmin): ?>  
                             <button class='btn btn-editar' data-categoria="coctel" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
                             <button class='btn btn-eliminar' data-categoria="coctel" data-id='<?= $producto['id_producto'] ?>'> Eliminar</button>
                           <?php endif; ?>
 
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
                       </div>
                   <?php endforeach;
               else: 
@@ -259,8 +268,11 @@ if (!empty($productosTortas)) {
             <button id="botonVerMasCoctel" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
             <?php if ($esAdmin): ?> 
             <button class="BotonVerMasProducto" data-bs-toggle="modal" data-bs-target="#adminModal" data-categoria="coctel">Añadir producto</button>
+<<<<<<< HEAD
           
 
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
             <?php endif; ?>
           </div>
         </div>
@@ -505,7 +517,11 @@ if (!empty($productosTortas)) {
     </div>
   </div>
 </div>
+<<<<<<< HEAD
 
+=======
+<?php endif; ?>
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
 
 
 <!-- Modal para editar producto -->
