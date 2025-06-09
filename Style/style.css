@@ -52,6 +52,62 @@ padding: 3px 10px ;
 transition: background-color 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 
+.hamburger {
+display: none;
+font-size: 2rem;
+cursor: pointer;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 900px) {
+
+  .logo{
+  width: 15vw;
+  height: auto;
+  cursor: pointer;
+  }
+
+  .hcontenedor{
+  padding: 10px;
+  justify-content: space-between;
+  
+  }
+
+  nav{
+  display: none;
+  flex-direction: column;
+  background: #F9E8F6;
+  position: absolute;
+  left: 0; 
+  right: auto; 
+  width: 200px;
+  padding: 1rem;
+  top: 48px;
+  right: 0px;
+  border-radius:  0 0 0 20px;
+  }
+
+  nav.active {
+  display: flex;
+  }
+
+  nav.active ul li a{
+  font-size: 1rem;
+  border-bottom: 1px solid #000000;
+  border-radius: 0px;
+  text-align: left;
+  padding-left: 0;
+  }
+
+  nav.active ul li a:active{
+  color: #fff;
+  }
+
+  .hamburger {
+  display: block;
+  }
+}
+
 /* Carrusel */
 
 .Carrusel .carousel-item img{
@@ -69,23 +125,23 @@ position: relative;
 
 
 .Productos h1{ 
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin: 0;
-  text-align: center;
-  font-size: 2rem;
-  text-decoration: none;
+padding-top: 20px;
+padding-bottom: 20px;
+margin: 0;
+text-align: center;
+font-size: 2rem;
+text-decoration: none;
 }
 
 .Tortas_seccion{
-background: #EACDF0        ;
+background: linear-gradient(to top, #EACDF0  50% , transparent);
 border-radius: 30px 30px 30px 30px;
 padding: 32px 0 24px 0;
 margin: 0px 10px 10px 10px;
 box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 }
 .Coctel_seccion {
-background: #EACDF0    ;
+background: linear-gradient(to top, #EACDF0  50% , transparent);
 border-radius: 30px 30px 30px 30px;
 padding: 32px 0 24px 0;
 margin: 25px 10px 10px 10px;
@@ -165,6 +221,11 @@ font-size: 3rem;
 }
 }
 
+.BotonesEnd{
+display: flex;
+justify-content: center;
+}
+
 .BotonVerMasProducto {
 position:relative;
 background: #EACDF0;
@@ -204,6 +265,8 @@ transition: transform 0.3s ease;
 transform: translateY(50%); /* Solo sube hasta la mitad */
 }
 
+
+
 .Carta_producto{
   background-color: #F9E8F6;
   padding: 16px;
@@ -231,22 +294,49 @@ transform: translateY(50%); /* Solo sube hasta la mitad */
 
 .Carta_producto h2{
 padding-top: 10px;
+max-width: 100%;
+font-size: 1.5rem;
 }
 
-.Carta_producto p{
+.Carta_producto .descripcion{
 display: flex;
 flex-grow: 1;
 flex-shrink: 1;
 flex-basis: 1;
 flex-wrap: wrap;
 max-width: 100%;
-min-height: 90px;
-min-height: 90px;
 width: 100%;
 padding-top: 10px;
 overflow-wrap: break-word;
 word-break: break-word;
 box-sizing: border-box;
+font-size: 1rem;
+min-height: 70px;
+max-height: 70px;         /* Altura máxima visible */
+overflow-y: auto;         /* Scroll vertical */
+scrollbar-width: thin;    /* Firefox: scroll delgado */
+scrollbar-color: #E3C0E8 #F9E8F6; /* Firefox: colores */
+}
+
+/*Scroll personalizado para Chrome, Edge y Safari */
+.Carta_producto p::-webkit-scrollbar {
+  width: 8px;
+  background: #F9E8F6;
+  border-radius: 8px;
+}
+
+.Carta_producto p::-webkit-scrollbar-thumb {
+  background: #E3C0E8;
+  border-radius: 8px;
+}
+
+.Carta_producto p::-webkit-scrollbar-thumb:hover {
+  background: #c49ad1;
+}
+
+.Carta_producto .precio{
+font-size: 1.2rem;
+font-weight: bold;
 }
 
 .Carta_producto .btn{
@@ -295,21 +385,48 @@ box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
 /* Modal incio de sesion*/
 
 .ButtonIniciar{
-  background-color: #F9E8F6;
-  width: 100%;
-  box-shadow: 4px 4px 10px -4px rgb(0, 0, 0);
-  border-radius: 40px;
-  padding: 10px;
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+position:relative;
+width: 100%;
+background: #F9E8F6;
+padding: 5px 50px 5px 50px;
+color: rgb(0, 0, 0);
+border-radius: 50px;
+overflow: hidden;
+margin: 20px auto;
+font-size: 1.3rem;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
+transition: 
+box-shadow 0.2s cubic-bezier(0.4,0,1,1),
+transform 0.2s cubic-bezier(0.4,0,1,1);
 }
 
-.ButtonIniciar:hover{
-  background-color: rgb(244, 197, 240);
+.ButtonIniciar:hover {
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.10);
+  transform: translateY(-6px) scale(1.03);
 }
+
+.ButtonIniciar::after {
+content: '';
+position: absolute;
+inset: 0;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to top, #ffffff  10% , transparent);
+transform: translateY(100%);
+transition: transform 0.3s ease;
+}
+
+.ButtonIniciar:hover::after {
+transform: translateY(50%);
+}
+
+
 
 /* Tortas personalizadas */
 .TortaPersonalizada_seccion{
-background: #c2f8f1 ;
+background:linear-gradient(to top, #c2f8f1  70% , transparent);
 align-items: center;
 border-radius: 30px 30px 30px 30px;
 padding: 32px 20px 24px 20px;
@@ -317,12 +434,14 @@ margin: 25px 10px 10px 10px;
 box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 }
 .TortaPersonalizada_seccion h1{
-padding-top: 20px;
-padding-bottom: 20px;
-margin: 0;
+padding: 10px 0 10px 0;
+margin-bottom: 30px;
 text-align: center;
 font-size: 2rem;
 text-decoration: none;
+background-color: #fff;
+border-radius: 30px;
+box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 }
 
 .Imagen_TortasPersonalizadas{
@@ -333,6 +452,7 @@ flex-wrap: wrap;
 box-sizing: border-box;
 box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 max-width: 100%; /* o el valor que prefieras */
+min-width: 50px;
 }
 
 .Imagen_TortasPersonalizadas img{
@@ -343,12 +463,15 @@ border-radius: 20px;
 }
 
 .Texto_TortaPersonalizada {
-  display: flex;
-  align-items: stretch;
-  padding: 10px;
-  margin: 20px 0 0 0px;
-  min-width: 200px;
-  gap: 0;
+display: flex;
+align-items: stretch;
+padding: 10px;
+margin: 20px 0 0 0px;
+min-width: 200px;
+gap: 0;
+background-color: #ffff;
+border-radius: 20px;
+
 }
 
 .Texto_TortaPersonalizada .Columna_texto {
@@ -371,10 +494,11 @@ position:relative;
 width: 30%;
 background: #c2f8f1;
 padding: 5px 50px 5px 50px;
+
 color: rgb(0, 0, 0);
 border-radius: 50px;
 overflow: hidden;
-margin: 20px auto;
+margin: 20px;
 font-size: 1.3rem;
 box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.158);
 transition: 
@@ -404,6 +528,63 @@ transition: transform 0.3s ease;
 
 .BotonComenzarTorta:hover::after {
 transform: translateY(50%);
+}
+
+
+/* Pantallas medianas */
+@media (max-width: 900px) {
+.TortaPersonalizada_seccion h1{
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.Imagen_TortasPersonalizadas{
+  height: auto;
+}
+.Imagen_TortasPersonalizadas img{
+  min-width: 165px;
+}
+
+
+.TortaPersonalizada_seccion h2 {
+font-size: 1rem;
+}
+
+.TortaPersonalizada_seccion p {
+font-size: 1rem;
+}
+
+.BotonComenzarTorta {
+  width: 100%;
+  height: 50px;
+}
+
+.Texto_TortaPersonalizada {
+flex-direction: column;
+align-items: stretch;
+height:200px;
+}
+.Texto_TortaPersonalizada .Columna_texto {
+width: 100%;
+margin-top: 0;
+margin: auto;
+}
+.BotonComenzarTorta {
+width: 50%;
+margin-right: auto;
+margin-left: auto;
+margin-bottom: 5px;
+margin-top: 0px;
+border-radius: 30px;
+padding: 0px;
+font-size: 1rem;
+}
+
+.Texto_TortaPersonalizada .Columna_texto {
+  display: block;
+  width: 70%;
+}
+
 }
 
 

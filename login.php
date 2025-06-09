@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Preparar y ejecutar consulta
-    $stmt = $conexion->prepare("SELECT id_usuario, nombre, contrasena FROM datos WHERE email = ?");
+    $stmt = $conexion->prepare("SELECT id_usuario, nombre, contrasena, tipousuario FROM datos WHERE email = ?");
     
     if (!$stmt) {
         die("Error en la preparación: " . $conexion->error);
@@ -31,13 +31,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verifica si se encontró el usuario
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $nombre, $hash);
+        $stmt->bind_result($id, $nombre, $hash, $tipousuario);
         $stmt->fetch();
 
         if (password_verify($contrasena, $hash)) {
             $_SESSION['id_usuario'] = $id;
             $_SESSION['nombre'] = $nombre;
+            $_SESSION['tipousuario'] = $tipousuario; // <- GUARDAMOS EL ROL
             header("Location: Web.html");
+            if ($_SESSION['tipousuario'] === 'admin') {
+                header("Location: Web.php");
+            } 
+            else 
+            {
+                header("Location: Web.php"); // Asegúrate de que este sea un archivo PHP si usas sesiones
+            }
             exit;
         } else {
             echo "❌ Contraseña incorrecta aaaa.";
