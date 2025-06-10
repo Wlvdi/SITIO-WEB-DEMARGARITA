@@ -190,6 +190,7 @@ if (!empty($productosTortas)) {
                           <h2><?= htmlspecialchars($producto['nombre']) ?></h2>
                           <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
                           <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
+<<<<<<< HEAD
                           <?php if ($esAdmin): ?> 
                             <div class="Adminbtn">
                               <button class='Adminbtna btn-editar'  data-categoria="torta" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
@@ -198,6 +199,18 @@ if (!empty($productosTortas)) {
                           <?php endif; ?>
                           <button class="btn" onclick="agregarAlCarrito('<?= htmlspecialchars($producto['nombre'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['descripcion'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['imagen'], ENT_QUOTES) ?>', <?= $producto['precio'] ?>)"> Añadir al carrito</button>
 
+=======
+                          <button class="btn">Añadir al carrito</button>
+<<<<<<< HEAD
+
+                          <?php if ($esAdmin): ?>  
+                            <button class='btn btn-editar' data-categoria="torta" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
+                            <button class='btn btn-eliminar' data-categoria="torta" data-id='<?= $producto['id_producto'] ?>'> Eliminar</button>
+                          <?php endif; ?>
+
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
+>>>>>>> ed3e615b9b3ba217a2c7d640d6b34e19d530b371
                       </div>
                   <?php endforeach;
               else: 
@@ -216,6 +229,10 @@ if (!empty($productosTortas)) {
             <button id="botonVerMasTorta" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
             <?php if ($esAdmin): ?>     
               <button class="BotonVerMasProducto" data-bs-toggle="modal" data-bs-target="#adminModal" data-categoria="torta">Añadir producto</button>
+<<<<<<< HEAD
+            
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
             <?php endif; ?>
           </div>
 
@@ -235,6 +252,7 @@ if (!empty($productosTortas)) {
                           <h2><?= htmlspecialchars($producto['nombre']) ?></h2>
                           <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
                           <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
+<<<<<<< HEAD
                           <?php if ($esAdmin): ?> 
                             <div class="Adminbtn">
                               <button class='Adminbtna btn-editar'  data-categoria="coctel" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
@@ -242,6 +260,18 @@ if (!empty($productosTortas)) {
                             </div>
                           <?php endif; ?>
                           <button class="btn" onclick="agregarAlCarrito('<?= htmlspecialchars($producto['nombre'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['descripcion'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['imagen'], ENT_QUOTES) ?>', <?= $producto['precio'] ?>)"> Añadir al carrito</button>
+=======
+                          <button class="btn">Añadir al carrito</button>
+<<<<<<< HEAD
+
+                            <?php if ($esAdmin): ?>  
+                            <button class='btn btn-editar' data-categoria="coctel" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
+                            <button class='btn btn-eliminar' data-categoria="coctel" data-id='<?= $producto['id_producto'] ?>'> Eliminar</button>
+                          <?php endif; ?>
+
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
+>>>>>>> ed3e615b9b3ba217a2c7d640d6b34e19d530b371
                       </div>
                   <?php endforeach;
               else: 
@@ -259,6 +289,11 @@ if (!empty($productosTortas)) {
             <button id="botonVerMasCoctel" class="BotonVerMasProducto" onclick="alternarProductos()">Ver más</button>
             <?php if ($esAdmin): ?> 
             <button class="BotonVerMasProducto" data-bs-toggle="modal" data-bs-target="#adminModal" data-categoria="coctel">Añadir producto</button>
+<<<<<<< HEAD
+          
+
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
             <?php endif; ?>
           </div>
         </div>
@@ -534,6 +569,15 @@ if (!empty($productosTortas)) {
     </div>
   </div>
 </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+<?php endif; ?>
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
+
+>>>>>>> ed3e615b9b3ba217a2c7d640d6b34e19d530b371
 
 <!-- Modal para editar producto -->
 <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-hidden="true">
@@ -571,6 +615,10 @@ if (!empty($productosTortas)) {
     </div>
   </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed3e615b9b3ba217a2c7d640d6b34e19d530b371
 <?php endif; ?>
 
 <div class="modal fade" id="carritoModal" tabindex="-1" aria-hidden="true">

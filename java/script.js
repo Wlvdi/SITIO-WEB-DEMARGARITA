@@ -270,7 +270,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+<<<<<<< HEAD
   // ✅ Enviar nuevo producto al backend - VERSIÓN CORREGIDA
+=======
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
+  // ✅ Enviar nuevo producto al backend
+>>>>>>> ed3e615b9b3ba217a2c7d640d6b34e19d530b371
   const form = document.getElementById("formNuevoProducto");
 
   if (form) {
@@ -429,8 +438,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
   }
+<<<<<<< HEAD
 });
 
+=======
+<<<<<<< HEAD
+});
+
+
+
+>>>>>>> ed3e615b9b3ba217a2c7d640d6b34e19d530b371
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("btn-editar")) {
     const card = e.target.closest(".Carta_producto");
@@ -481,4 +498,11 @@ document.addEventListener("click", function (e) {
           e.target.closest(".Carta_producto").remove();
         });
     }
+<<<<<<< HEAD
 }});
+=======
+  }});
+=======
+});
+>>>>>>> 1281f423b1553ccfdf6896667947b308fad2cd4e
+>>>>>>> ed3e615b9b3ba217a2c7d640d6b34e19d530b371
