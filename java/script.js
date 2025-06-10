@@ -270,9 +270,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ✅ Enviar nuevo producto al backend
+  // ✅ Enviar nuevo producto al backend - VERSIÓN CORREGIDA
   const form = document.getElementById("formNuevoProducto");
-  
+
   if (form) {
     console.log("✅ Formulario de nuevo producto encontrado");
     
@@ -316,94 +316,169 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => {
           console.log("📡 Respuesta recibida - Status:", response.status);
           
-          if (!response.ok) {
-            return response.text().then(text => {
-              console.error("❌ Respuesta del servidor:", text);
-              throw new Error(`Error del servidor (${response.status}): ${text.substring(0, 100)}...`);
-            });
-          }
-          
-          return response.text();
-        })
-        .then(text => {
-          console.log("📥 Respuesta raw del servidor:", text);
-          
-          // Limpiar JSON
-          let cleanText = text.trim();
-          const jsonStart = cleanText.indexOf('{');
-          const jsonEnd = cleanText.lastIndexOf('}');
-          
-          if (jsonStart === -1 || jsonEnd === -1) {
-            console.error("❌ No se encontró JSON válido en la respuesta");
-            throw new Error("El servidor no devolvió un JSON válido");
-          }
-          
-          cleanText = cleanText.substring(jsonStart, jsonEnd + 1);
-          
-          try {
-            const data = JSON.parse(cleanText);
-            console.log("📥 Respuesta parseada:", data);
-
-            if (data.exito) {
-              console.log("✅ Producto guardado exitosamente");
-              
-              // Crear nueva carta de producto
-              const carta = document.createElement("div");
-              carta.classList.add("Carta_producto");
-              carta.innerHTML = `
-                <img src="${data.imagen}" alt="${data.nombre}">
-                <h2>${data.nombre}</h2>
-                <p>${data.descripcion}</p>
-                <p>Precio: $${parseInt(data.precio).toLocaleString()}</p>
-                <button class="btn">Añadir al carrito</button>
-              `;
-              carta.style.display = "block";
-
-              // Agregar a la sección correspondiente
-              let contenedor;
-              if (data.categoria === "torta") {
-                contenedor = document.querySelector(".Cartas_productos_TORTAS");
-              } else if (data.categoria === "coctel") {
-                contenedor = document.querySelector(".Cartas_productos_COCTEL");
-              }
-              
-              if (contenedor) {
-                const botonVerMas = contenedor.parentNode.querySelector('.BotonVerMasProducto');
-                if (botonVerMas) {
-                  contenedor.parentNode.insertBefore(carta, botonVerMas);
-                } else {
-                  contenedor.appendChild(carta);
-                }
-                console.log("✅ Producto agregado a la sección:", data.categoria);
-              }
-
-              // Cerrar modal y resetear
-              const modalInstance = bootstrap.Modal.getInstance(document.getElementById("adminModal"));
-              if (modalInstance) {
-                modalInstance.hide();
-              }
-              
-              alert("✅ Producto agregado exitosamente");
-              
-            } else {
-              console.error("❌ Error del servidor:", data.mensaje);
-              alert("❌ Error: " + (data.mensaje || "Error desconocido"));
+          // Obtener el texto completo primero
+          return response.text().then(text => {
+            console.log("📥 Respuesta completa del servidor:");
+            console.log("=== INICIO RESPUESTA ===");
+            console.log(text);
+            console.log("=== FIN RESPUESTA ===");
+            
+            // Verificar si hay contenido antes del JSON
+            const jsonStart = text.indexOf('{');
+            const jsonEnd = text.lastIndexOf('}');
+            
+            if (jsonStart > 0) {
+              console.warn("⚠️ Contenido antes del JSON:", text.substring(0, jsonStart));
             }
             
-          } catch (parseError) {
-            console.error("❌ Error al parsear JSON:", parseError);
-            alert("❌ Error en la respuesta del servidor");
+            if (jsonStart === -1 || jsonEnd === -1) {
+              throw new Error("No se encontró JSON válido en la respuesta. Respuesta completa: " + text);
+            }
+            
+            // Extraer solo el JSON
+            const jsonString = text.substring(jsonStart, jsonEnd + 1);
+            console.log("🔍 JSON extraído:", jsonString);
+            
+            try {
+              const data = JSON.parse(jsonString);
+              console.log("✅ JSON parseado exitosamente:", data);
+              return data;
+            } catch (parseError) {
+              console.error("❌ Error específico de parseo:", parseError);
+              throw new Error("Error al parsear JSON: " + parseError.message);
+            }
+          });
+        })
+        .then(data => {
+          console.log("📥 Datos procesados:", data);
+
+          if (data.exito) {
+            console.log("✅ Producto guardado exitosamente");
+            
+            // Crear nueva carta de producto
+            const carta = document.createElement("div");
+            carta.classList.add("Carta_producto");
+            carta.innerHTML = `
+              <img src="${data.imagen}" alt="${data.nombre}">
+              <h2>${data.nombre}</h2>
+              <p class="descripcion">${data.descripcion}</p>
+              <p class="precio">$${parseInt(data.precio).toLocaleString()}</p>
+              <button class="btn" onclick="agregarAlCarrito('${data.nombre.replace(/'/g, "\\'")}', '${data.descripcion.replace(/'/g, "\\'")}', '${data.imagen}', ${data.precio})">Añadir al carrito</button>
+            `;
+            carta.style.display = "block";
+
+            // CORRECCIÓN: Agregar a la sección correspondiente de manera más robusta
+            let contenedor;
+            if (data.categoria === "torta") {
+              contenedor = document.querySelector(".Cartas_productos_TORTAS");
+            } else if (data.categoria === "coctel") {
+              contenedor = document.querySelector(".Cartas_productos_COCTEL");
+            }
+            
+            if (contenedor) {
+              // Buscar el último producto existente en el contenedor
+              const productosExistentes = contenedor.querySelectorAll('.Carta_producto:not(.Carta_tipo_producto)');
+              
+              if (productosExistentes.length > 0) {
+                // Insertar después del último producto
+                const ultimoProducto = productosExistentes[productosExistentes.length - 1];
+                ultimoProducto.parentNode.insertBefore(carta, ultimoProducto.nextSibling);
+              } else {
+                // Si no hay productos, insertar después del header de tipo de producto
+                const tipoProducto = contenedor.querySelector('.Carta_tipo_producto');
+                if (tipoProducto) {
+                  tipoProducto.parentNode.insertBefore(carta, tipoProducto.nextSibling);
+                } else {
+                  // Como último recurso, simplemente agregar al final
+                  contenedor.appendChild(carta);
+                }
+              }
+              
+              console.log("✅ Producto agregado a la sección:", data.categoria);
+            } else {
+              console.warn("⚠️ No se encontró el contenedor para la categoría:", data.categoria);
+            }
+
+            // Cerrar modal y resetear
+            const modalInstance = bootstrap.Modal.getInstance(document.getElementById("adminModal"));
+            if (modalInstance) {
+              modalInstance.hide();
+            }
+            
+            alert("✅ Producto agregado exitosamente");
+            
+            // Opcional: Recargar la página para actualizar completamente
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+            
+          } else {
+            console.error("❌ Error del servidor:", data.mensaje);
+            alert("❌ Error: " + (data.mensaje || "Error desconocido"));
           }
         })
         .catch(error => {
           console.error("❌ Error completo:", error);
-          alert("❌ Erroraaaaaaaa: " + error.message);
+          alert("❌ Error: " + error.message);
         })
         .finally(() => {
           // Restaurar botón
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
+          console.log("🔄 Botón restaurado");
         });
     });
   }
 });
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("btn-editar")) {
+    const card = e.target.closest(".Carta_producto");
+    const id = e.target.dataset.id;
+    const nombre = card.querySelector("h2").textContent;
+    const descripcion = card.querySelector(".descripcion")?.textContent || "";
+    const precio = card.querySelector(".precio")?.textContent.replace(/\D/g, "") || "";
+
+    // Rellenar formulario
+    document.getElementById("edit_id").value = id;
+    document.getElementById("edit_nombre").value = nombre;
+    document.getElementById("edit_descripcion").value = descripcion;
+    document.getElementById("edit_precio").value = precio;
+
+    // Abrir modal
+    const modalEditar = new bootstrap.Modal(document.getElementById("modalEditarProducto"));
+    modalEditar.show();
+  }
+});
+
+document.getElementById("formEditarProducto").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+
+  fetch("editar_producto.php", {
+    method: "POST",
+    body: formData
+  })
+    .then(res => res.text())
+    .then(msg => {
+      alert(msg);
+      location.reload(); // o actualizar solo esa tarjeta si prefieres
+    });
+});
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("btn-eliminar")) {
+    const id = e.target.dataset.id;
+    if (confirm("¿Estás seguro de eliminar este producto?")) {
+      fetch("eliminar_producto.php", {
+        method: "POST",
+        body: new URLSearchParams({ id })
+      })
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg);
+          e.target.closest(".Carta_producto").remove();
+        });
+    }
+}});

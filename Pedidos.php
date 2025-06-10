@@ -59,7 +59,7 @@ $conexion->close();
                 <li><a href="#"><?= $esAdmin ? '👑' : '👤' ?> </a></li>
 
                 <!-- Cerrar sesión -->
-                <li><a href="">Cerrar sesión</a></li>
+                <li><a href="logout.php">Cerrar sesión</a></li>
 
               <?php else: ?>
                 <li><a data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Iniciar sesión</a></li>

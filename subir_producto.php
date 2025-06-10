@@ -1,39 +1,57 @@
 <?php
-// *** LIMPIAR BUFFER DE SALIDA PARA EVITAR CARACTERES EXTRA ***
-ob_start(); // ✅ Usar ob_start() en lugar de ob_clean()
+// *** VERSIÓN COMPLETAMENTE LIMPIA - SIN OUTPUT EXTRA ***
 
-// Activar reporte de errores para debugging (comentar en producción)
-error_reporting(E_ALL);
-ini_set('display_errors', 0); // Cambiar a 0 para evitar output extra
-ini_set('log_errors', 1); // ✅ Habilitar log de errores
+// Configuración inicial - sin output
+ini_set('display_errors', 0);
+error_reporting(0);
 
-// Iniciar sesión para verificar permisos de admin
+// Iniciar buffer limpio
+ob_start();
+
+// Iniciar sesión
 session_start();
 
-// Verificar que el usuario sea admin
-if (!isset($_SESSION['tipousuario']) || $_SESSION['tipousuario'] !== 'admin') {
-    ob_clean(); // ✅ Limpiar buffer antes de enviar respuesta
-    header('Content-Type: application/json');
-    echo json_encode(["exito" => false, "mensaje" => "No tienes permisos para realizar esta acción"]);
+// Función para enviar respuesta JSON limpia
+function enviarRespuesta($data) {
+    // Limpiar cualquier output previo
+    if (ob_get_level()) {
+        ob_clean();
+    }
+    
+    // Headers limpios
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-cache, must-revalidate');
+    
+    // Enviar JSON
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    
+    // Terminar script limpiamente
     exit;
 }
 
-// Establecer header JSON al inicio
-header('Content-Type: application/json');
+// Verificar permisos de admin
+if (!isset($_SESSION['tipousuario']) || $_SESSION['tipousuario'] !== 'admin') {
+    enviarRespuesta([
+        "exito" => false, 
+        "mensaje" => "No tienes permisos para realizar esta acción"
+    ]);
+}
+
+// Verificar método POST
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    enviarRespuesta([
+        "exito" => false, 
+        "mensaje" => "Método no permitido"
+    ]);
+}
 
 // Conexión a la base de datos
 $conexion = new mysqli("localhost", "root", "", "trabajo");
 if ($conexion->connect_error) {
-    ob_clean(); // ✅ Limpiar buffer
-    echo json_encode(["exito" => false, "mensaje" => "Error de conexión: " . $conexion->connect_error]);
-    exit;
-}
-
-// ✅ Verificar que sea POST
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    ob_clean();
-    echo json_encode(["exito" => false, "mensaje" => "Método no permitido"]);
-    exit;
+    enviarRespuesta([
+        "exito" => false, 
+        "mensaje" => "Error de conexión a la base de datos"
+    ]);
 }
 
 try {
@@ -52,15 +70,14 @@ try {
         throw new Exception("El precio debe ser al menos $1.000");
     }
 
-    // Validar que la categoría sea válida
+    // Validar categoría
     if (!in_array($categoria, ['torta', 'coctel'])) {
-        throw new Exception("Categoría no válida: " . $categoria);
+        throw new Exception("Categoría no válida");
     }
 
-    // Manejo de la imagen
+    // Validar imagen
     if (!isset($_FILES["imagen"]) || $_FILES["imagen"]["error"] !== UPLOAD_ERR_OK) {
-        $error_code = $_FILES["imagen"]["error"] ?? "No file";
-        throw new Exception("Error al subir la imagen. Código: " . $error_code);
+        throw new Exception("Error al subir la imagen");
     }
 
     $imagen = $_FILES["imagen"];
@@ -68,7 +85,7 @@ try {
     // Validar tipo de archivo
     $tiposPermitidos = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     if (!in_array($imagen["type"], $tiposPermitidos)) {
-        throw new Exception("Solo se permiten imágenes (JPG, PNG, GIF). Recibido: " . $imagen["type"]);
+        throw new Exception("Solo se permiten imágenes JPG, PNG o GIF");
     }
 
     // Validar tamaño (máximo 5MB)
@@ -79,26 +96,24 @@ try {
     // Crear directorio si no existe
     $directorio = "Imagenes/";
     if (!is_dir($directorio)) {
-        if (!mkdir($directorio, 0777, true)) {
-            throw new Exception("Error al crear directorio de imágenes");
-        }
+        mkdir($directorio, 0755, true);
     }
 
-    // Generar nombre único para la imagen
+    // Generar nombre único
     $extension = pathinfo($imagen["name"], PATHINFO_EXTENSION);
     $nombreArchivo = time() . "_" . uniqid() . "." . $extension;
     $rutaDestino = $directorio . $nombreArchivo;
 
-    // Mover archivo subido
+    // Mover archivo
     if (!move_uploaded_file($imagen["tmp_name"], $rutaDestino)) {
-        throw new Exception("Error al guardar la imagen en: " . $rutaDestino);
+        throw new Exception("Error al guardar la imagen");
     }
 
     // Insertar en base de datos
     $stmt = $conexion->prepare("INSERT INTO productos (nombre, precio, descripcion, imagen, categoria) VALUES (?, ?, ?, ?, ?)");
     
     if (!$stmt) {
-        throw new Exception("Error en la consulta: " . $conexion->error);
+        throw new Exception("Error en la consulta SQL");
     }
 
     $stmt->bind_param("sisss", $nombre, $precio, $descripcion, $rutaDestino, $categoria);
@@ -108,10 +123,8 @@ try {
         $stmt->close();
         $conexion->close();
         
-        // ✅ Limpiar buffer antes de enviar respuesta exitosa
-        ob_clean();
-        
-        $success = [
+        // Respuesta exitosa
+        enviarRespuesta([
             "exito" => true,
             "mensaje" => "Producto agregado exitosamente",
             "id" => $producto_id,
@@ -120,36 +133,20 @@ try {
             "precio" => $precio,
             "imagen" => $rutaDestino,
             "categoria" => $categoria
-        ];
-        
-        echo json_encode($success);
+        ]);
     } else {
-        throw new Exception("Error al guardar en la base de datos: " . $stmt->error);
+        throw new Exception("Error al guardar en la base de datos");
     }
     
 } catch (Exception $e) {
-    // ✅ Manejo centralizado de errores
-    ob_clean(); // Limpiar buffer
+    // Cerrar conexiones
+    if (isset($stmt)) $stmt->close();
+    if (isset($conexion)) $conexion->close();
     
-    // Cerrar conexiones si están abiertas
-    if (isset($stmt)) {
-        $stmt->close();
-    }
-    if (isset($conexion)) {
-        $conexion->close();
-    }
-    
-    // Enviar respuesta de error
-    echo json_encode([
+    // Respuesta de error
+    enviarRespuesta([
         "exito" => false, 
-        "mensaje" => $e->getMessage(),
-        "debug" => [
-            "archivo" => $e->getFile(),
-            "linea" => $e->getLine()
-        ]
+        "mensaje" => $e->getMessage()
     ]);
 }
-
-// *** LIMPIAR BUFFER Y TERMINAR LIMPIAMENTE ***
-ob_end_flush();
 ?>

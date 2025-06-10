@@ -115,12 +115,12 @@ if (!empty($productosTortas)) {
                 <li><a href="#Inicio">Inicio</a></li>
                 <li><a href="#Productos">Productos</a></li>
                 <li><a href="#">Contacto</a></li>
-                <li><a href="#">Sobre nosotros</a></li>
-
+                <li><a href="#SobreNosotros">Sobre nosotros</a></li>
+                <li><a href="#" data-bs-toggle="modal" data-bs-target="#carritoModal"> Carrito (<span id="contador-carrito">0</span>)</a></li>
                 <?php if ($esAdmin): ?>
                   <li><a href="Pedidos.php">Pedidos</a></li>
                 <?php endif; ?>
-
+                
                 <!-- Ícono de usuario/admin -->
                 <?php if ($logueado): ?>
                   <li><a href="#"><?= $esAdmin ? '👑' : '👤' ?> </a></li>
@@ -190,7 +190,14 @@ if (!empty($productosTortas)) {
                           <h2><?= htmlspecialchars($producto['nombre']) ?></h2>
                           <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
                           <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
-                          <button class="btn">Añadir al carrito</button>
+                          <?php if ($esAdmin): ?> 
+                            <div class="Adminbtn">
+                              <button class='Adminbtna btn-editar'  data-categoria="torta" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
+                              <button class='Adminbtna btn-eliminar' data-categoria="torta" data-id='<?= $producto['id_producto'] ?>'> Eliminar</button>
+                            </div>
+                          <?php endif; ?>
+                          <button class="btn" onclick="agregarAlCarrito('<?= htmlspecialchars($producto['nombre'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['descripcion'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['imagen'], ENT_QUOTES) ?>', <?= $producto['precio'] ?>)"> Añadir al carrito</button>
+
                       </div>
                   <?php endforeach;
               else: 
@@ -228,7 +235,13 @@ if (!empty($productosTortas)) {
                           <h2><?= htmlspecialchars($producto['nombre']) ?></h2>
                           <p class="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></p>
                           <p class="precio">$<?= number_format($producto['precio'], 0, ',', '.') ?></p>
-                          <button class="btn">Añadir al carrito</button>
+                          <?php if ($esAdmin): ?> 
+                            <div class="Adminbtn">
+                              <button class='Adminbtna btn-editar'  data-categoria="coctel" data-id='<?= $producto['id_producto'] ?>'> Editar</button>
+                              <button class='Adminbtna btn-eliminar' data-categoria="coctel" data-id='<?= $producto['id_producto'] ?>'> Eliminar</button>
+                            </div>
+                          <?php endif; ?>
+                          <button class="btn" onclick="agregarAlCarrito('<?= htmlspecialchars($producto['nombre'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['descripcion'], ENT_QUOTES) ?>', '<?= htmlspecialchars($producto['imagen'], ENT_QUOTES) ?>', <?= $producto['precio'] ?>)"> Añadir al carrito</button>
                       </div>
                   <?php endforeach;
               else: 
@@ -272,11 +285,42 @@ if (!empty($productosTortas)) {
         </div>
       </section>
 
-      <section class="SobreNosotros">
+      <section class="SobreNosotros"> 
+        <h1 id="SobreNosotros">Sobre nosotros</h1>
+        <div class="SobreNosotrosContent">
+          <div class="SobreNosotrosTexto">
+            <p>Somos una empresa dedicada a la creación de tortas y cocteles únicos y personalizados. Nuestro objetivo es hacer que cada celebración sea especial con productos de alta calidad y un servicio excepcional.</p>
+            <p></p>
+          </div>
+          <div class="SobreNosotrosImagen">
+            <img src="Imagenes/DeMargarita.png" alt="Sobre nosotros">
+          </div>
+        </div>
       </section>
 
     </main>
 
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="Imagenes/DeMargarita.png" alt="Logo De Margarita">
+    </div>
+    <div class="footer-links">
+      <a href="#Inicio">Inicio</a>
+      <a href="#Productos">Productos</a>
+      <a href="#SobreNosotros">Sobre Nosotros</a>
+      <a href="#Contacto">Contacto</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/demargarita.cl/"><i class="fab fa-instagram"></i></a>
+      <a href=""><i class="fa-brands fa-facebook"></i></a>
+      <a href=""><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+  </div> 
+  <div class="footer-copy">
+    © <?= date('Y') ?> De Margarita. Todos los derechos reservados.
+  </div>
+</footer>
 
 
 <!-- Modal inicio de sesion -->
@@ -490,10 +534,89 @@ if (!empty($productosTortas)) {
     </div>
   </div>
 </div>
+
+<!-- Modal para editar producto -->
+<div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="formEditarProducto" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id" id="edit_id">
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" name="nombre" id="edit_nombre" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Descripción</label>
+            <input type="text" name="descripcion" id="edit_descripcion" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Precio</label>
+            <input type="number" name="precio" id="edit_precio" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Imagen (opcional)</label>
+            <input type="file" name="imagen" class="form-control">
+            <small id="edit_imagen_actual"></small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <?php endif; ?>
+
+<div class="modal fade" id="carritoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="CarritoModal">
+            <div class="modal-header">
+                <h5 class="modal-title">🛒 Tu Carrito</h5>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carrito-items" class="carrito-items">
+                    <!-- Productos dinámicos aparecerán aquí via JS -->
+                    <p class="text-center py-3 text-muted">El carrito está vacío</p>
+                </div>
+                <div class="carrito-total text-end mt-4">
+                    <h4>Total: $<span id="carrito-total"></span></h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="vaciarCarrito()" class="btn btn-danger">
+                    Vaciar Carrito
+                </button>
+                <button type="button" id="finalizar-compra" class="btn btn-success">
+                    Finalizar Compra ($<span id="total-checkout">0.00</span>)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast de notificación-->
+<div class="toast align-items-center text-white bg-success border-0" id="toastAgregado" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            Producto añadido al carrito!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="java/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0d4c023edf.js" crossorigin="anonymous"></script>
+<script src="java/carrito.js"></script>
+
 </body>
 </html>
